@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAddProduct"
@@ -12,5 +12,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:background="#ff0000"
             android:onClick="fabAddProd_click"
-            android:src="@drawable/ic_add_circle_1" />
+            android:src="@drawable/ic_add_circle_1"
+            app:backgroundTint="@color/colorPrimary" />
+
 </ScrollView>
