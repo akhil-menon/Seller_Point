@@ -13,6 +13,6 @@
             android:background="#ff0000"
             android:onClick="fabAddProd_click"
             android:src="@drawable/ic_add_circle_1"
-            app:backgroundTint="@color/colorPrimary" />
+            app:backgroundTint="@android:color/holo_blue_light" />
 
 </ScrollView>
