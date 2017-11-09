@@ -1,26 +1,39 @@
 package com.example.root.seller_point;
 
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.opengl.EGLExt;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ProductActivity extends AppCompatActivity {
 
     CheckBox chkfreeship;
     TextView txtshipcharge;
-    Spinner spincategory,spinsubcategory;
+    Spinner spincategory,spinsubcategory,spinmaxbuyqty;
+    SpinnerAdapter objSpinAdapter;
+    ArrayList<HashMap<String,String>> spinlist = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String,String>> subspinlist = new ArrayList<HashMap<String, String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +42,25 @@ public class ProductActivity extends AppCompatActivity {
 
         chkfreeship = findViewById(R.id.chkfreeship);
         txtshipcharge = findViewById(R.id.shippingcharge);
-        String str[] = {"a","b","c"};
         spincategory = findViewById(R.id.spincategory);
-        spincategory.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,str));
-        spinsubcategory = findViewById(R.id.spinsubcategory);
+        spincategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                HashMap<String,String> map = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
+                Toast.makeText(ProductActivity.this,map.get("ID"),Toast.LENGTH_SHORT).show();
+                new spinasynccls().execute();
+            }
 
-        new RestaurantRegistraion().execute();
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        spinsubcategory = findViewById(R.id.spinsubcategory);
+        String[] str = {"1","2","3","4","5"};
+        spinmaxbuyqty = findViewById(R.id.spinmaxbuyqty);
+        spinmaxbuyqty.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,str));
+        new asynccls().execute();
     }
 
     public void Chkfreeship_click(View v){
@@ -48,12 +74,13 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
-    public void doWork(String args)
+    public void btnaddprod_Click(View v)
     {
-        Toast.makeText(ProductActivity.this,"This is post execute",Toast.LENGTH_SHORT).show();
+        HashMap<String,String> map = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
+        Toast.makeText(ProductActivity.this,map.get("ID"),Toast.LENGTH_SHORT).show();
     }
 
-    public  class RestaurantRegistraion extends AsyncTask<String,Void,String>
+    public class asynccls extends AsyncTask<String,Void,String>
     {
 //        @Override
 //        protected void onPreExecute() {
@@ -68,7 +95,7 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = "http://192.168.0.104/sellerapi/public/index.php/api/tblCategory";
+            String link = "http://192.168.0.107/sellerapi/public/index.php/api/tblCategory/CategoryID~0";
             try {
                 URL url = new URL(link);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -130,28 +157,94 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 //            pd.dismiss();
-
             Toast.makeText(ProductActivity.this,result,Toast.LENGTH_SHORT).show();
-//            try {
-//                JSONObject jsonObject = new JSONObject(result);
-//                int code = jsonObject.getInt("code");
-//                String message = jsonObject.getString("message");
-//                if(code == 100)
-//                {
-//                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-//                }
-//                else if(code == 101)
-//                {
-//                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-//                }
-//                else if(code == 102)
-//                {
-//                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-//                }
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            try {
+
+                JSONArray jsonArray = new JSONArray(result);
+
+                for(int i = 0;i<jsonArray.length();i++)
+                {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                    HashMap<String,String> map = new HashMap<String, String>();
+                    map.put("ID",jsonObject1.getString("ID"));
+                    map.put("Name",jsonObject1.getString("Name"));
+
+                    spinlist.add(map);
+
+                }
+
+                objSpinAdapter = new SpinnerAdapter(ProductActivity.this,spinlist);
+                spincategory.setAdapter(objSpinAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            super.onPostExecute(result);
+        }
+    }
+
+    public class spinasynccls extends AsyncTask<String,Void,String>
+    {
+        @Override
+        protected String doInBackground(String... params) {
+            HashMap<String,String> map = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
+            String response = "";
+            String link = "http://192.168.0.107/sellerapi/public/index.php/api/tblCategory/CategoryID~"+map.get("ID");
+            try {
+                URL url = new URL(link);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(false);
+                httpURLConnection.connect();
+
+                int responsecode = httpURLConnection.getResponseCode();
+                if(responsecode ==  HttpURLConnection.HTTP_OK)
+                {
+                    InputStream is = httpURLConnection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+                    String line = "";
+
+                    while((line = br.readLine())!=null)
+                    {
+                        response = response + line;
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(ProductActivity.this,result,Toast.LENGTH_SHORT).show();
+            try {
+
+                JSONArray jsonArray = new JSONArray(result);
+                subspinlist.clear();
+                for(int i = 0;i<jsonArray.length();i++)
+                {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                    HashMap<String,String> map = new HashMap<String, String>();
+                    map.put("ID",jsonObject1.getString("ID"));
+                    map.put("Name",jsonObject1.getString("Name"));
+
+                    subspinlist.add(map);
+
+                }
+
+                objSpinAdapter = new SpinnerAdapter(ProductActivity.this,subspinlist);
+                spinsubcategory.setAdapter(objSpinAdapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             super.onPostExecute(result);
         }

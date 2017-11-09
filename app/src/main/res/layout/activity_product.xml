@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:id="@+id/spinmaxbuyqty"
-                    android:autofillHints="SubCategory">
+                    android:autofillHints="Max Quantity">
                 </Spinner>
 
             </android.support.design.widget.TextInputLayout>
@@ -212,12 +212,14 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                android:id="@+id/btnaddprod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimary"
                 android:text="Add Product"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:onClick="btnaddprod_Click"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
