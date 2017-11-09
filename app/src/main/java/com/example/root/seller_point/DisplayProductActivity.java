@@ -1,30 +1,16 @@
 package com.example.root.seller_point;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -59,13 +45,12 @@ public class DisplayProductActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            Toast.makeText(getApplicationContext(),"Process1",Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = "http://192.168.0.104/sellerapi/public/index.php/api/tblProduct";
+            String link = getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c/p.*,c.Name%20as%20CategoryName/p.Category~c.ID";
 
             try {
                 URL url = new URL(link);
@@ -91,14 +76,12 @@ public class DisplayProductActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-//                Toast.makeText(DisplayProductActivity.this,"CatchBg",Toast.LENGTH_SHORT).show();
             }
             return response;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             try {
                 JSONArray jsonArray = new JSONArray(result);
 
@@ -108,18 +91,16 @@ public class DisplayProductActivity extends AppCompatActivity {
 
                     HashMap<String,String> map = new HashMap<String, String>();
                     map.put("Name",jsonObject1.getString("Name"));
-                    map.put("Category",jsonObject1.getString("Category"));
+                    map.put("Category",jsonObject1.getString("CategoryName"));
                     map.put("Desc",jsonObject1.getString("Description"));
 
                     list.add(map);
                 }
-//                Toast.makeText(getApplicationContext(), list.toString(), Toast.LENGTH_LONG).show();
                 objMyAdapter = new MyAdapter(DisplayProductActivity.this,list);
                 lv.setAdapter(objMyAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
-//                Toast.makeText(getApplicationContext(),"Catch",Toast.LENGTH_SHORT).show();
             }
             super.onPostExecute(result);
 

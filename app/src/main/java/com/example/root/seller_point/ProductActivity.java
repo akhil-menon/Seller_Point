@@ -1,8 +1,6 @@
 package com.example.root.seller_point;
 
-import android.database.Cursor;
-import android.database.MatrixCursor;
-import android.opengl.EGLExt;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,17 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ import java.util.HashMap;
 public class ProductActivity extends AppCompatActivity {
 
     CheckBox chkfreeship;
-    TextView txtshipcharge;
+    TextView txtshipcharge,txtprodname,txtstock,txtdesc,txtdiscount,txtcashoff,txtprice;
     Spinner spincategory,spinsubcategory,spinmaxbuyqty;
     SpinnerAdapter objSpinAdapter;
     ArrayList<HashMap<String,String>> spinlist = new ArrayList<HashMap<String, String>>();
@@ -42,12 +39,17 @@ public class ProductActivity extends AppCompatActivity {
 
         chkfreeship = findViewById(R.id.chkfreeship);
         txtshipcharge = findViewById(R.id.shippingcharge);
+        txtprodname = findViewById(R.id.txtprodname);
+        txtstock = findViewById(R.id.stock);
+        txtdesc = findViewById(R.id.desc);
+        txtdiscount = findViewById(R.id.flatdiscount);
+        txtcashoff = findViewById(R.id.cashdiscount);
+        txtprice = findViewById(R.id.price);
         spincategory = findViewById(R.id.spincategory);
         spincategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 HashMap<String,String> map = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
-                Toast.makeText(ProductActivity.this,map.get("ID"),Toast.LENGTH_SHORT).show();
                 new spinasynccls().execute();
             }
 
@@ -76,8 +78,12 @@ public class ProductActivity extends AppCompatActivity {
 
     public void btnaddprod_Click(View v)
     {
-        HashMap<String,String> map = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
-        Toast.makeText(ProductActivity.this,map.get("ID"),Toast.LENGTH_SHORT).show();
+        HashMap<String,String> catg = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
+        HashMap<String,String> subcatg = spinlist.get(Integer.parseInt(spinsubcategory.getSelectedItemId()+""));
+
+        new insasynccls().execute(txtprodname.getText().toString(),catg.get("ID"),subcatg.get("ID"),
+                txtstock.getText().toString(),spinmaxbuyqty.getSelectedItem().toString(),txtdesc.getText().toString(),
+                txtdiscount.getText().toString(),txtcashoff.getText().toString(),txtprice.getText().toString(),txtshipcharge.getText().toString());
     }
 
     public class asynccls extends AsyncTask<String,Void,String>
@@ -95,7 +101,7 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = "http://192.168.0.107/sellerapi/public/index.php/api/tblCategory/CategoryID~0";
+            String link = getResources().getString(R.string.URL)+"/api/tblCategory/CategoryID~0";
             try {
                 URL url = new URL(link);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -157,7 +163,6 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 //            pd.dismiss();
-            Toast.makeText(ProductActivity.this,result,Toast.LENGTH_SHORT).show();
             try {
 
                 JSONArray jsonArray = new JSONArray(result);
@@ -191,7 +196,7 @@ public class ProductActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HashMap<String,String> map = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
             String response = "";
-            String link = "http://192.168.0.107/sellerapi/public/index.php/api/tblCategory/CategoryID~"+map.get("ID");
+            String link = getResources().getString(R.string.URL)+"api/tblCategory/CategoryID~"+map.get("ID");
             try {
                 URL url = new URL(link);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -222,7 +227,6 @@ public class ProductActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(ProductActivity.this,result,Toast.LENGTH_SHORT).show();
             try {
 
                 JSONArray jsonArray = new JSONArray(result);
@@ -248,5 +252,104 @@ public class ProductActivity extends AppCompatActivity {
 
             super.onPostExecute(result);
         }
+    }
+
+    public class insasynccls extends AsyncTask<String,Void,String>
+    {
+//        @Override
+//        protected void onPreExecute() {
+//            pd = new ProgressDialog(MainActivity.this);
+//            pd.setTitle("Loading");
+//            pd.setMessage("Please Wait...");
+//            pd.setCancelable(false);
+//            pd.show();
+//            super.onPreExecute();
+//        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            String link = getResources().getString(R.string.URL)+"insert/product";
+            try {
+                URL url = new URL(link);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.connect();
+
+//                result = getStringImage(bitmap);
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("Name",params[0])
+                        .appendQueryParameter("Category",params[1])
+                        .appendQueryParameter("Sub_Category",params[2])
+                        .appendQueryParameter("Stock",params[3])
+                        .appendQueryParameter("MaxBuyQty",params[4])
+                        .appendQueryParameter("Description",params[5])
+                        .appendQueryParameter("Flat_Discount",params[6])
+                        .appendQueryParameter("Cash_Discount",params[7])
+                        .appendQueryParameter("Price",params[8])
+                        .appendQueryParameter("Shipping_Charge",params[9]);
+
+                String qry = builder.build().getEncodedQuery();
+
+                OutputStream os = httpURLConnection.getOutputStream();
+                OutputStreamWriter osw = new OutputStreamWriter(os);
+                BufferedWriter bw = new BufferedWriter(osw);
+                bw.write(qry);
+                bw.flush();
+                bw.close();
+                os.close();
+
+                int responsecode = httpURLConnection.getResponseCode();
+                if(responsecode ==  HttpURLConnection.HTTP_OK)
+                {
+                    InputStream is = httpURLConnection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+                    String line = "";
+
+                    while((line = br.readLine())!=null)
+                    {
+                        response = response + line;
+                    }
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            pd.dismiss();
+            return response;
+        }
+
+//        @Override
+//        protected void onPostExecute(String result) {
+////            pd.dismiss();
+//            try {
+//
+//                JSONArray jsonArray = new JSONArray(result);
+//
+//                for(int i = 0;i<jsonArray.length();i++)
+//                {
+//                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+//
+//                    HashMap<String,String> map = new HashMap<String, String>();
+//                    map.put("ID",jsonObject1.getString("ID"));
+//                    map.put("Name",jsonObject1.getString("Name"));
+//
+//                    spinlist.add(map);
+//
+//                }
+//
+//                objSpinAdapter = new SpinnerAdapter(ProductActivity.this,spinlist);
+//                spincategory.setAdapter(objSpinAdapter);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            super.onPostExecute(result);
+//        }
     }
 }
