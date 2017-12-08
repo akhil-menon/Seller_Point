@@ -13,13 +13,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Button btn;
+    gridfrontadapter objgridadp;
+    GridView frontgv;
+
+    String[] gridViewString = {
+            "Product","Stock","Offers"
+    };
+    
+    int[] gridViewImageId = {
+            R.drawable.ic_menu_camera,R.drawable.ic_menu_gallery,R.drawable.ic_menu_manage
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +41,26 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        objgridadp = new gridfrontadapter(this,gridViewString,gridViewImageId);
+
+        frontgv = findViewById(R.id.grid_view_image_text);
+        frontgv.setAdapter(objgridadp);
+        frontgv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "GridView Item: " + gridViewString[+i], Toast.LENGTH_LONG).show();
+                if(gridViewString[+i] == "Product"){
+                    startActivity(new Intent(MainActivity.this,AcProductActivity.class));
+                }
+                else if(gridViewString[+i] == "Stock"){
+
+                }
+                else if(gridViewString[+i] == "Offers"){
+
+                }
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

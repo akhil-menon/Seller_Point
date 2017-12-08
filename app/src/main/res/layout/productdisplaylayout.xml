@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#fff"
-        android:clickable="true"
-        android:elevation="4dp"
-        android:padding="20dp"
-        android:text="Products Uploaded" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:background="#fff"
+            android:elevation="8dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/prod_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/prod_image"
+                android:layout_marginLeft="5dp"
+                android:text="Title"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/prod_desc"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/prod_image"
+                android:text="Product_Description"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/prod_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/prod_desc"
+                android:layout_toRightOf="@+id/prod_image"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="5dp"
+                android:text="Mobile" />
+
+            <ImageView
+                android:id="@+id/prod_image"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_default" />
+
+        </RelativeLayout>
 
 </LinearLayout>
