@@ -96,7 +96,6 @@ public class AcProductActivity extends AppCompatActivity {
                     HashMap<String,String> map = new HashMap<String, String>();
                     map.put("ID",jsonObject1.getString("ID"));
                     map.put("Name",jsonObject1.getString("Name"));
-                    map.put("ImageID",jsonObject1.getString("ImageID"));
 
                     list.add(map);
                 }

@@ -51,12 +51,16 @@ public class MyAdapter extends BaseAdapter {
         TextView prodtitle = view.findViewById(R.id.prod_title);
         TextView proddesc = view.findViewById(R.id.prod_desc);
         TextView prodcategory = view.findViewById(R.id.prod_category);
+        TextView prodprice= view.findViewById(R.id.prod_price);
+        TextView proddiscount= view.findViewById(R.id.prod_Discount);
 
         HashMap<String,String> map = list.get(i);
 
         prodtitle.setText(map.get("Name"));
         proddesc.setText(map.get("Desc"));
         prodcategory.setText(map.get("Category"));
+        prodprice.setText(map.get("Price"));
+        proddiscount.setText(map.get("Discount")+"% discount");
 
         return view;
     }

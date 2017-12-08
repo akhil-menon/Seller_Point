@@ -1,12 +1,20 @@
 package com.example.root.seller_point;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.RippleDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.QuickContactBadge;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DisplayProductActivity extends AppCompatActivity {
+public class DisplayProductActivity extends AppCompatActivity{
 
     FloatingActionButton fabAddProd;
     ListView lv;
@@ -32,6 +40,7 @@ public class DisplayProductActivity extends AppCompatActivity {
 
         fabAddProd = findViewById(R.id.fabAddProduct);
         lv = findViewById(R.id.listprod);
+
         new DisplayTask().execute();
     }
 
@@ -93,6 +102,8 @@ public class DisplayProductActivity extends AppCompatActivity {
                     map.put("Name",jsonObject1.getString("Name"));
                     map.put("Category",jsonObject1.getString("CategoryName"));
                     map.put("Desc",jsonObject1.getString("Description"));
+                    map.put("Price",jsonObject1.getString("Price"));
+                    map.put("Discount",jsonObject1.getString("Flat_Discount"));
 
                     list.add(map);
                 }
