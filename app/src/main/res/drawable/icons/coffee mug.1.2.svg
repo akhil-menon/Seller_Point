@@ -1,18 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="24.001px" height="24.001px" viewBox="0 0 24.001 24.001" enable-background="new 0 0 24.001 24.001" xml:space="preserve">
-<g id="Frames-24px">
-	<rect fill="none" width="24.001" height="24.001"/>
-</g>
-<g id="Outline">
-	<path fill="#757575" d="M22.001,13c0-4.364-2.199-6.613-2.293-6.707C19.521,6.105,19.266,6,19.001,6h-2.586l2.293-2.293
-		l-1.414-1.414L13.587,6H4.001v2h14.534c0.475,0.637,1.466,2.289,1.466,5c0,1.036-0.71,1.996-1.518,2.742
-		c0.146-2.487-0.443-5.117-1.775-6.449C16.521,9.105,16.266,9,16.001,9h-13C2.597,9,2.232,9.244,2.077,9.617
-		c-0.155,0.374-0.069,0.804,0.217,1.09l1.432,1.433c-1.047,1.883-1.897,5.297,0.475,8.461C4.39,20.853,4.686,21,5.001,21h11
-		c0.265,0,0.52-0.105,0.707-0.293c0.521-0.521,0.921-1.246,1.216-2.076C19.095,17.936,22.001,15.919,22.001,13z M15.541,11
-		c0.5,0.696,0.801,1.804,0.909,3H5.075c0.309-0.816,0.687-1.347,0.726-1.399c0.299-0.398,0.259-0.956-0.093-1.308L5.415,11H15.541z
-		 M15.541,19H5.524c-0.667-1.047-0.873-2.078-0.851-3H16.45C16.342,17.196,16.041,18.304,15.541,19z"/>
-</g>
-</svg>
+ay:none}#mw-panel.collapsible-nav .portal.first{background-image:none;margin-top:0} #mw-panel.collapsible-nav .portal.persistent .body{display:block}#mw-panel.collapsible-nav .portal.persistent h5{background:none !important;padding-left:0.7em;cursor:default}#mw-panel.collapsible-nav .portal.persistent .body{margin-left:0.5em} #mw-panel.collapsible-nav .portal.collapsed h5{color:#0645AD;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEX///95eXnd3d2dnZ3aAo3QAAAAAXRSTlMAQObYZgAAADFJREFUeF5dyzEKACAMA0CXolNe2Id09Kl5igZahWY4AiGjZwmIuS9GEcJfY63Ix88Bol4EYP1O7JMAAAAASUVORK5CYII=) left center no-repeat;background:url(//bits.wikimedia.org/static-1.21wmf1/extensions/Vector/modules/images/closed-ltr.png?2012-10-01T13:31:40Z) left center no-repeat!ie;margin-bottom:0}#mw-panel.collapsible-nav .portal.collapsed h5 a{color:#0645AD}#mw-panel.collapsible-nav .portal.collapsed h5:hover{text-decoration:underline}
+
+/* cache key: enwiki:resourceloader:filter:minify-css:7:1e91934d0c145544b2a85186dd6be5ec */
+
+</style><style type="text/css">.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}
+
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a8c9125b6bfbeaa21d7b5a7a9ab98e2
