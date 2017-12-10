@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Edit"
+        android:orderInCategory="100"
+        android:title="Edit" />
+
+    <item
+        android:id="@+id/Delete"
+        android:orderInCategory="101"
+        android:title="Delete"/>
+
+    <item
+        android:id="@+id/Offer"
+        android:orderInCategory="102"
+        android:title="Add Offer"/>
+</menu>

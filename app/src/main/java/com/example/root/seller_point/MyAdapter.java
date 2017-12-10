@@ -1,11 +1,17 @@
 package com.example.root.seller_point;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +59,8 @@ public class MyAdapter extends BaseAdapter {
         TextView prodcategory = view.findViewById(R.id.prod_category);
         TextView prodprice= view.findViewById(R.id.prod_price);
         TextView proddiscount= view.findViewById(R.id.prod_Discount);
+        final ImageButton imgbtn = view.findViewById(R.id.imgbtn);
+        final int pos = i;
 
         HashMap<String,String> map = list.get(i);
 
@@ -61,6 +69,46 @@ public class MyAdapter extends BaseAdapter {
         prodcategory.setText(map.get("Category"));
         prodprice.setText(map.get("Price"));
         proddiscount.setText(map.get("Discount")+"% discount");
+
+        imgbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final PopupMenu popup = new PopupMenu(context, imgbtn);
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.Edit) {
+                            Intent intent = new Intent(context,ProductActivity.class);
+                            intent.putExtra("id",pos);
+                            context.startActivity(intent);
+                        }
+                        else if (item.getItemId() == R.id.Delete){
+                            Toast.makeText(context,"Delete",Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("Warning")
+                                    .setMessage("Are you sure you want to delete this product?")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // do nothing
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+                        else if (item.getItemId() == R.id.Offer) {
+                            Toast.makeText(context,"Offer",Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
+            }
+        });
 
         return view;
     }
