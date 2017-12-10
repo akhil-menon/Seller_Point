@@ -1,19 +1,13 @@
 package com.example.root.seller_point;
 
+import android.app.ActionBar;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.RippleDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.QuickContactBadge;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -109,7 +103,6 @@ public class DisplayProductActivity extends AppCompatActivity{
                 }
                 objMyAdapter = new MyAdapter(DisplayProductActivity.this,list);
                 lv.setAdapter(objMyAdapter);
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -117,5 +110,4 @@ public class DisplayProductActivity extends AppCompatActivity{
 
         }
     }
-
 }

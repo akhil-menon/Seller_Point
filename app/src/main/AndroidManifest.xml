@@ -30,9 +30,21 @@
         <activity
             android:name=".Profile2Activity"
             android:theme="@style/ProfileTheme" />
-        <activity android:name=".ProductActivity" />
-        <activity android:name=".DisplayProductActivity" />
-        <activity android:name=".AcProductActivity"></activity>
+        <activity android:name=".ProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayProductActivity" />
+        </activity>
+        <activity android:name=".DisplayProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".AcProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>

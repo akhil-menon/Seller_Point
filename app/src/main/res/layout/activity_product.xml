@@ -190,11 +190,9 @@
                     android:id="@+id/shippingcharge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Shipping Charges"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:visibility="invisible"
-                    android:text="0">
+                    android:visibility="invisible">
 
                 </android.support.design.widget.TextInputEditText>
 
@@ -219,8 +217,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimary"
                 android:text="Add Product"
-                android:textColor="#ffffff"
-                android:onClick="btnaddprod_Click"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
