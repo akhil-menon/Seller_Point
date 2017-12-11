@@ -203,6 +203,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp">
 
+                <Spinner
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/spinaccount"
+                    android:autofillHints="Category">
+                </Spinner>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
