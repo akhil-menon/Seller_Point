@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,15 +36,18 @@ public class ProductActivity extends AppCompatActivity {
 
     CheckBox chkfreeship;
     TextView txtshipcharge,txtprodname,txtstock,txtdesc,txtdiscount,txtcashoff,txtprice;
-    Spinner spincategory,spinsubcategory,spinmaxbuyqty;
+    Spinner spincategory,spinsubcategory,spinmaxbuyqty,spinaccount;
     SpinnerAdapter objSpinAdapter;
+    acspinadapter objacspinadapter;
     Button btnaddprod;
     ProgressDialog pd;
     ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String,String>> spinlist = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String,String>> subspinlist = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String,String>> acspinlist = new ArrayList<HashMap<String, String>>();
     int pos = 0;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,7 @@ public class ProductActivity extends AppCompatActivity {
         txtdiscount = findViewById(R.id.flatdiscount);
         txtcashoff = findViewById(R.id.cashdiscount);
         txtprice = findViewById(R.id.price);
+
         spincategory = findViewById(R.id.spincategory);
         spincategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -70,10 +76,17 @@ public class ProductActivity extends AppCompatActivity {
 
             }
         });
+
         spinsubcategory = findViewById(R.id.spinsubcategory);
+
         String[] str = {"1","2","3","4","5"};
         spinmaxbuyqty = findViewById(R.id.spinmaxbuyqty);
         spinmaxbuyqty.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,str));
+
+        spinaccount = findViewById(R.id.spinaccount);
+        spinaccount.setLayoutMode(Spinner.MODE_DIALOG);
+
+        new acspinasynccls().execute();
         new asynccls().execute();
 
         btnaddprod.setOnClickListener(new View.OnClickListener() {
@@ -279,6 +292,74 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
+    public class acspinasynccls extends AsyncTask<String,Void,String>
+    {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            String link = getResources().getString(R.string.URL)+"/api/tblAccountType";
+            try {
+                URL url = new URL(link);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(false);
+                httpURLConnection.connect();
+
+                int responsecode = httpURLConnection.getResponseCode();
+                if(responsecode ==  HttpURLConnection.HTTP_OK)
+                {
+                    InputStream is = httpURLConnection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+                    String line = "";
+
+                    while((line = br.readLine())!=null)
+                    {
+                        response = response + line;
+                    }
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+
+                JSONArray jsonArray = new JSONArray(result);
+
+                HashMap<String,String> acmap = new HashMap<String, String>();
+                acmap.put("Name","Select Account");
+                acspinlist.add(acmap);
+                for(int i = 0;i<jsonArray.length();i++)
+                {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                    HashMap<String,String> map = new HashMap<String, String>();
+                    map.put("ID",jsonObject1.getString("ID"));
+                    map.put("Name",jsonObject1.getString("Name"));
+
+                    acspinlist.add(map);
+
+                }
+
+                objacspinadapter = new acspinadapter(ProductActivity.this,acspinlist);
+                spinaccount.setAdapter(objacspinadapter);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            super.onPostExecute(result);
+        }
+    }
+
     public class insasynccls extends AsyncTask<String,Void,String>
     {
         @Override
@@ -294,7 +375,12 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"insert/product";
+            String link = "";
+            if( pos == -1)
+                 link = getResources().getString(R.string.URL)+"insert/product";
+//            else
+//                link = getResources().getString(R.string.URL)+"update/product";
+
             try {
                 URL url = new URL(link);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
