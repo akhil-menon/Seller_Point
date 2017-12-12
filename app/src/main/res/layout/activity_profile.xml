@@ -20,7 +20,7 @@
             android:layout_height="120dp"
             android:layout_below="@+id/header_cover_image"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-170dp"
+            android:layout_marginTop="-195dp"
             android:background="@drawable/profile_default"
             android:elevation="5dp"
             android:padding="20dp"
@@ -31,11 +31,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="146dp"
-            android:text="Menon Akhil Parameshwaran"
+            android:layout_marginTop="126dp"
+            android:text="Akhil Menon"
             android:textColor="#fff"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/user_profile_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="156dp"
+            android:text="+000000000000"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/user_profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="176dp"
+            android:text="akhil@gmail.com"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -74,6 +95,30 @@
                 android:elevation="4dp"
                 android:padding="20dp"
                 android:text="Accounts" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="Returns" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="Orders" />
 
         </LinearLayout>
     </RelativeLayout>

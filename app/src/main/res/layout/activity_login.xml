@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_bg"
+    android:background="@drawable/bg2"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="40dp">
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:src="@drawable/profile_default" />
+        android:layout_height="150dp"
+        android:src="@drawable/seller_point_logo" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:textColorHint="#cccccc">
+        android:textColorHint="#3f51b5">
 
         <EditText
             android:layout_width="match_parent"
@@ -34,14 +34,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColorHint="#cccccc">
+        android:textColorHint="#3f51b5">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
             android:drawableLeft="@drawable/ic_lock_1"
-            android:hint="   Passwoard"
+            android:hint="   Password"
             android:inputType="textPassword"
             android:textColor="#cccccc"
             android:textSize="20sp" />
@@ -63,4 +63,16 @@
         android:background="#79a209df"
         android:text="Log In"
         android:textColor="#cccccc" />
+
+    <TextView
+        android:id="@+id/txtreg"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="Register Now"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textSize="16sp" />
 </LinearLayout>

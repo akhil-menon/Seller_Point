@@ -27,9 +27,6 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/LogInAppTheme" />
-        <activity
-            android:name=".Profile2Activity"
-            android:theme="@style/ProfileTheme" />
         <activity android:name=".ProductActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -45,6 +42,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".RegistrationActivity"
+            android:theme="@style/LogInAppTheme" />
     </application>
 
 </manifest>
