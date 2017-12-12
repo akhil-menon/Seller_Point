@@ -31,4 +31,3 @@ dependencies {
     compile 'com.github.traex.rippleeffect:library:1.3'
     compile 'com.android.support:cardview-v7:26.1.0'
 }
-
