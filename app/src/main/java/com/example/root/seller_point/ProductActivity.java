@@ -1,6 +1,8 @@
 package com.example.root.seller_point;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,8 +37,8 @@ import java.util.HashMap;
 public class ProductActivity extends AppCompatActivity {
 
     CheckBox chkfreeship;
-    TextView txtshipcharge,txtprodname,txtstock,txtdesc,txtdiscount,txtcashoff,txtprice;
-    Spinner spincategory,spinsubcategory,spinmaxbuyqty,spinaccount;
+    TextView txtshipcharge,txtprodname,txtstock,txtdesc,txtdiscount,txtcashoff,txtprice,spinaccount;
+    Spinner spincategory,spinsubcategory,spinmaxbuyqty;
     SpinnerAdapter objSpinAdapter;
     acspinadapter objacspinadapter;
     Button btnaddprod;
@@ -44,10 +46,12 @@ public class ProductActivity extends AppCompatActivity {
     ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String,String>> spinlist = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String,String>> subspinlist = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String,String>> acspinlist = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String,String>> acspin = new ArrayList<HashMap<String, String>>();
+    String[] acspinlist;
+    boolean[] acspinlistchk;
     int pos = 0;
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+//    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,9 +88,56 @@ public class ProductActivity extends AppCompatActivity {
         spinmaxbuyqty.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,str));
 
         spinaccount = findViewById(R.id.spinaccount);
-        spinaccount.setLayoutMode(Spinner.MODE_DIALOG);
-
+//        spinaccount.setLayoutMode(Spinner.MODE_DIALOG);
         new acspinasynccls().execute();
+
+        spinaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProductActivity.this);
+                builder.setMultiChoiceItems(acspinlist, acspinlistchk, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        acspinlistchk[i] = b;
+                    }
+                });
+                // Specify the dialog is not cancelable
+                builder.setCancelable(false);
+
+                // Set a title for alert dialog
+                builder.setTitle("Accounts on Which you want to insert");
+
+                // Set the positive/yes button click listener
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do something when click positive button
+//                spinaccount.setText("Your preferred colors..... \n");
+                        spinaccount.setText("");
+                        for (int i = 0; i<acspinlistchk.length; i++){
+                            boolean checked = acspinlistchk[i];
+                            if (checked) {
+                                spinaccount.setText(spinaccount.getText() + acspinlist[i] + "\n");
+                            }
+                        }
+                    }
+                });
+
+                // Set the neutral/cancel button click listener
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do something when click the neutral button
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                // Display the alert dialog on interface
+
+                dialog.show();
+            }
+        });
+
         new asynccls().execute();
 
         btnaddprod.setOnClickListener(new View.OnClickListener() {
@@ -117,11 +168,31 @@ public class ProductActivity extends AppCompatActivity {
     public void btnaddprod_Click(View v)
     {
         HashMap<String,String> catg = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
-        HashMap<String,String> subcatg = spinlist.get(Integer.parseInt(spinsubcategory.getSelectedItemId()+""));
+        HashMap<String,String> subcatg = new HashMap<String, String>();
+        if(Integer.parseInt(spincategory.getSelectedItemId()+"") !=1)
+            subcatg = spinlist.get(Integer.parseInt(spinsubcategory.getSelectedItemId()+""));
+        else
+        {
+            subcatg.put("ID","0");
+        }
 
-        new insasynccls().execute(txtprodname.getText().toString(),catg.get("ID"),subcatg.get("ID"),
-                txtstock.getText().toString(),spinmaxbuyqty.getSelectedItem().toString(),txtdesc.getText().toString(),
-                txtdiscount.getText().toString(),txtcashoff.getText().toString(),txtprice.getText().toString(),txtshipcharge.getText().toString());
+        String[] s = spinaccount.getText().toString().split("\n");
+        int [] id= new int[s.length];
+
+        for(int i=0;i<s.length;i++) {
+            for (HashMap<String, String> tmp : acspin) {
+                if (tmp.get("Name").equals(s[i]))
+                {
+                    id[i]=Integer.parseInt(tmp.get("ID"));
+                }
+            }
+        }
+
+        for(int i=0;i<id.length;i++) {
+            new insasynccls().execute(txtprodname.getText().toString(), catg.get("ID"), subcatg.get("ID"),
+                    txtstock.getText().toString(), spinmaxbuyqty.getSelectedItem().toString(), txtdesc.getText().toString(),
+                    txtdiscount.getText().toString(), txtcashoff.getText().toString(), txtprice.getText().toString(), txtshipcharge.getText().toString(),id[i]+"");
+        }
     }
 
     public class asynccls extends AsyncTask<String,Void,String>
@@ -334,9 +405,12 @@ public class ProductActivity extends AppCompatActivity {
 
                 JSONArray jsonArray = new JSONArray(result);
 
-                HashMap<String,String> acmap = new HashMap<String, String>();
-                acmap.put("Name","Select Account");
-                acspinlist.add(acmap);
+                acspinlist=new String[jsonArray.length()];
+                acspinlistchk=new boolean[jsonArray.length()];
+
+                //HashMap<String,String> acmap = new HashMap<String, String>();
+                //acmap.put("Name","Select Account");
+                //acspinlist.add(acmap);
                 for(int i = 0;i<jsonArray.length();i++)
                 {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
@@ -345,12 +419,15 @@ public class ProductActivity extends AppCompatActivity {
                     map.put("ID",jsonObject1.getString("ID"));
                     map.put("Name",jsonObject1.getString("Name"));
 
-                    acspinlist.add(map);
-
+                    acspinlist[i] = jsonObject1.getString("Name");
+                    acspinlistchk[i]=false;
+                    acspin.add(map);
                 }
 
-                objacspinadapter = new acspinadapter(ProductActivity.this,acspinlist);
-                spinaccount.setAdapter(objacspinadapter);
+
+
+//                objacspinadapter = new acspinadapter(ProductActivity.this,acspinlist);
+//                spinaccount.setAdapter(objacspinadapter);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -376,7 +453,7 @@ public class ProductActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String response = "";
             String link = "";
-            if( pos == -1)
+//            if( pos == -1)
                  link = getResources().getString(R.string.URL)+"insert/product";
 //            else
 //                link = getResources().getString(R.string.URL)+"update/product";
@@ -401,7 +478,7 @@ public class ProductActivity extends AppCompatActivity {
                         .appendQueryParameter("Cash_Discount",params[7])
                         .appendQueryParameter("Price",params[8])
                         .appendQueryParameter("Shipping_Charge",params[9])
-                        .appendQueryParameter("AccountID","1");
+                        .appendQueryParameter("AccountID",params[10]);
 
                 String qry = builder.build().getEncodedQuery();
 
