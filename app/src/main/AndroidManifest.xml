@@ -14,8 +14,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
             android:theme="@style/ProfileTheme" />
@@ -43,8 +42,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".RegistrationActivity"
+        <activity
+            android:name=".RegistrationActivity"
             android:theme="@style/LogInAppTheme" />
+        <activity android:name=".DisplayDetailActivity" />
+        <activity android:name=".OfferActivity" />
+        <activity android:name=".OfferDisplayActivity"></activity>
     </application>
 
 </manifest>

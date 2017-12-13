@@ -8,6 +8,10 @@
             android:id="@+id/profile"
             android:icon="@drawable/ic_menu_camera"
             android:title="Profile" />
+        <item
+            android:id="@+id/product"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Products" />
     </group>
 
     <item android:title="Accounts">
