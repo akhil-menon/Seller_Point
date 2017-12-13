@@ -19,6 +19,7 @@
         android:textColorHint="#3f51b5">
 
         <EditText
+            android:id="@+id/txtuname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
@@ -37,6 +38,7 @@
         android:textColorHint="#3f51b5">
 
         <EditText
+            android:id="@+id/txtpwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
@@ -57,6 +59,7 @@
         android:textSize="16sp" />
 
     <Button
+        android:id="@+id/btnlogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
