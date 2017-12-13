@@ -23,7 +23,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     Button btn;
     ProgressDialog pd;
-    EditText txtname,txtuname,txtaddr,txtemail,txtpwd;
+    EditText txtname,txtuname,txtaddr,txtemail,txtpwd,txtmobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         txtname = findViewById(R.id.txtname);
         txtuname = findViewById(R.id.txtuname);
+        txtmobile = findViewById(R.id.txtmobile);
         txtaddr = findViewById(R.id.txtaddr);
         txtemail = findViewById(R.id.txtemail);
         txtpwd = findViewById(R.id.txtpwd);
@@ -41,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new insasynccls().execute(txtname.getText().toString(),txtuname.getText().toString(),
+                new insasynccls().execute(txtname.getText().toString(),txtuname.getText().toString(),txtmobile.getText().toString(),
                         txtaddr.getText().toString(),txtemail.getText().toString(),txtpwd.getText().toString());
             }
         });
@@ -76,10 +77,11 @@ public class RegistrationActivity extends AppCompatActivity {
 //                result = getStringImage(bitmap);
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("Name",params[0])
-                        .appendQueryParameter("Mobile",params[1])
-                        .appendQueryParameter("Address",params[2])
-                        .appendQueryParameter("Email",params[3])
-                        .appendQueryParameter("Password",params[4])
+                        .appendQueryParameter("Username",params[1])
+                        .appendQueryParameter("Mobile",params[2])
+                        .appendQueryParameter("Address",params[3])
+                        .appendQueryParameter("Email",params[4])
+                        .appendQueryParameter("Password",params[5])
                         .appendQueryParameter("IsActive","1");
 
                 String qry = builder.build().getEncodedQuery();
