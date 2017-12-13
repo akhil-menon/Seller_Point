@@ -93,6 +93,7 @@ public class DisplayProductActivity extends AppCompatActivity{
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
                     HashMap<String,String> map = new HashMap<String, String>();
+                    map.put("ID",jsonObject1.getString("ID"));
                     map.put("Name",jsonObject1.getString("Name"));
                     map.put("Category",jsonObject1.getString("CategoryName"));
                     map.put("Desc",jsonObject1.getString("Description"));

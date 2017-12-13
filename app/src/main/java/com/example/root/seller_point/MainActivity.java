@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity
         frontgv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this, "GridView Item: " + gridViewString[+i], Toast.LENGTH_LONG).show();
                 if(gridViewString[+i] == "Product"){
                     startActivity(new Intent(MainActivity.this,AcProductActivity.class));
                 }
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
                 else if(gridViewString[+i] == "Offers"){
-
+                    startActivity(new Intent(MainActivity.this,OfferDisplayActivity.class));
                 }
             }
         });
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_logout) {
             Intent i = new Intent(this,LoginActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_amazon) {
+        } else if (id == R.id.product) {
             Intent i = new Intent(this,DisplayProductActivity.class);
             startActivity(i);
         }

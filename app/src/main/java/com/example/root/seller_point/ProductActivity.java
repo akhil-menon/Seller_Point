@@ -50,6 +50,7 @@ public class ProductActivity extends AppCompatActivity {
     String[] acspinlist;
     boolean[] acspinlistchk;
     int pos = 0;
+    String shipcharge = "0";
 
 //    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
@@ -148,8 +149,8 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        pos = intent.getIntExtra("id",-1);
-        if( pos != -1){
+        pos = intent.getIntExtra("id",0);
+        if( pos != 0){
             new DisplayTask().execute();
         }
     }
@@ -176,6 +177,10 @@ public class ProductActivity extends AppCompatActivity {
             subcatg.put("ID","0");
         }
 
+        if(!txtshipcharge.getText().toString().equals("")){
+            shipcharge = txtshipcharge.getText().toString();
+        }
+
         String[] s = spinaccount.getText().toString().split("\n");
         int [] id= new int[s.length];
 
@@ -189,9 +194,17 @@ public class ProductActivity extends AppCompatActivity {
         }
 
         for(int i=0;i<id.length;i++) {
-            new insasynccls().execute(txtprodname.getText().toString(), catg.get("ID"), subcatg.get("ID"),
-                    txtstock.getText().toString(), spinmaxbuyqty.getSelectedItem().toString(), txtdesc.getText().toString(),
-                    txtdiscount.getText().toString(), txtcashoff.getText().toString(), txtprice.getText().toString(), txtshipcharge.getText().toString(),id[i]+"");
+            if(pos == 0){
+                new insasynccls().execute(txtprodname.getText().toString(), catg.get("ID"), subcatg.get("ID"),
+                        txtstock.getText().toString(), spinmaxbuyqty.getSelectedItem().toString(), txtdesc.getText().toString(),
+                        txtdiscount.getText().toString(), txtcashoff.getText().toString(), txtprice.getText().toString(), shipcharge,id[i]+"");
+            }
+            else{
+                new updasynccls().execute(pos+"",txtprodname.getText().toString(), catg.get("ID"), subcatg.get("ID"),
+                        txtstock.getText().toString(), spinmaxbuyqty.getSelectedItem().toString(), txtdesc.getText().toString(),
+                        txtdiscount.getText().toString(), txtcashoff.getText().toString(), txtprice.getText().toString(), shipcharge,id[i]+"");
+            }
+
         }
     }
 
@@ -453,10 +466,7 @@ public class ProductActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String response = "";
             String link = "";
-//            if( pos == -1)
-                 link = getResources().getString(R.string.URL)+"insert/product";
-//            else
-//                link = getResources().getString(R.string.URL)+"update/product";
+            link = getResources().getString(R.string.URL)+"insert/product";
 
             try {
                 URL url = new URL(link);
@@ -524,6 +534,91 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
+    public class updasynccls extends AsyncTask<String,Void,String>
+    {
+        @Override
+        protected void onPreExecute() {
+            pd = new ProgressDialog(ProductActivity.this);
+            pd.setTitle("Loading");
+            pd.setMessage("Please Wait...");
+            pd.setCancelable(false);
+            pd.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            String link = "";
+            link = getResources().getString(R.string.URL)+"update/product";
+
+            try {
+                URL url = new URL(link);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.connect();
+
+//                result = getStringImage(bitmap);
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("ID",params[0])
+                        .appendQueryParameter("Name",params[1])
+                        .appendQueryParameter("Category",params[2])
+                        .appendQueryParameter("Sub_Category",params[3])
+                        .appendQueryParameter("Stock",params[4])
+                        .appendQueryParameter("MaxAllowedBuyQty",params[5])
+                        .appendQueryParameter("Description",params[6])
+                        .appendQueryParameter("Flat_Discount",params[7])
+                        .appendQueryParameter("Cash_Discount",params[8])
+                        .appendQueryParameter("Price",params[9])
+                        .appendQueryParameter("Shipping_Charge",params[10])
+                        .appendQueryParameter("AccountID",params[11]);
+
+                String qry = builder.build().getEncodedQuery();
+
+                OutputStream os = httpURLConnection.getOutputStream();
+                OutputStreamWriter osw = new OutputStreamWriter(os);
+                BufferedWriter bw = new BufferedWriter(osw);
+                bw.write(qry);
+                bw.flush();
+                bw.close();
+                os.close();
+
+                int responsecode = httpURLConnection.getResponseCode();
+                if(responsecode ==  HttpURLConnection.HTTP_OK)
+                {
+                    InputStream is = httpURLConnection.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+                    String line = "";
+
+                    while((line = br.readLine())!=null)
+                    {
+                        response = response + line;
+                    }
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            pd.dismiss();
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            try {
+                startActivity(new Intent(ProductActivity.this,DisplayProductActivity.class));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.onPostExecute(result);
+        }
+    }
+
     public class DisplayTask extends AsyncTask<String,Void,String>
     {
         @Override
@@ -534,7 +629,7 @@ public class ProductActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c/p.*,c.Name%20as%20CategoryName/p.Category~c.ID";
+            String link = getResources().getString(R.string.URL)+"/api/tblProduct%20p,tblCategory%20c,tblAccountType%20a/p.*,a.Name%20as%20Account,c.Name%20as%20CategoryName/p.Category~c.ID,p.AccountID~a.ID,p.ID~"+pos;
 
             try {
                 URL url = new URL(link);
@@ -568,12 +663,12 @@ public class ProductActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             try {
                 JSONArray jsonArray = new JSONArray(result);
+                HashMap<String,String> map = new HashMap<String, String>();
 
                 for(int i = 0;i<jsonArray.length();i++)
                 {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
-                    HashMap<String,String> map = new HashMap<String, String>();
                     map.put("Name",jsonObject1.getString("Name"));
                     map.put("Category",jsonObject1.getString("Category"));
                     map.put("CategoryName",jsonObject1.getString("CategoryName"));
@@ -588,23 +683,10 @@ public class ProductActivity extends AppCompatActivity {
                     map.put("FreeShippingAvail",jsonObject1.getString("FreeShippingAvail"));
                     map.put("Shipping_Charge",jsonObject1.getString("Shipping_Charge"));
                     map.put("AccountID",jsonObject1.getString("AccountID"));
-
-                    list.add(map);
+                    map.put("Account",jsonObject1.getString("Account"));
                 }
-                HashMap<String,String> map = list.get(pos);
-                Toast.makeText(ProductActivity.this,map+"",Toast.LENGTH_LONG).show();
 
-                chkfreeship = findViewById(R.id.chkfreeship);
-                txtshipcharge = findViewById(R.id.shippingcharge);
-                txtprodname = findViewById(R.id.txtprodname);
-                txtstock = findViewById(R.id.stock);
-                txtdesc = findViewById(R.id.desc);
-                txtdiscount = findViewById(R.id.flatdiscount);
-                txtcashoff = findViewById(R.id.cashdiscount);
-                txtprice = findViewById(R.id.price);
-                spincategory = findViewById(R.id.spincategory);
-                spinsubcategory = findViewById(R.id.spinsubcategory);
-                spinmaxbuyqty = findViewById(R.id.spinmaxbuyqty);
+                Toast.makeText(ProductActivity.this,jsonArray+"",Toast.LENGTH_LONG).show();
 
                 txtprodname.setText(map.get("Name"));
                 txtstock.setText(map.get("Stock"));
@@ -626,6 +708,9 @@ public class ProductActivity extends AppCompatActivity {
                 spinmaxbuyqty.setSelection(Integer.parseInt(map.get("MaxAllowedBuyQty")) - 1);
 
                 spincategory.setSelection(getIndex(spincategory, map.get("CategoryName")));
+
+                spinaccount.setText(map.get("Account"));
+                spinaccount.setClickable(false);
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -37,7 +37,7 @@ public class AcProductActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 HashMap<String,String>map = list.get(i);
-                Toast.makeText(AcProductActivity.this,map.get("ID"),Toast.LENGTH_LONG).show();
+                Toast.makeText(AcProductActivity.this,map.get("ID"),Toast.LENGTH_SHORT).show();
             }
         });
 
