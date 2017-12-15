@@ -4,12 +4,16 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -40,6 +46,7 @@ public class ProductActivity extends AppCompatActivity {
     TextView txtshipcharge,txtprodname,txtstock,txtdesc,txtdiscount,txtcashoff,txtprice,spinaccount;
     Spinner spincategory,spinsubcategory,spinmaxbuyqty;
     SpinnerAdapter objSpinAdapter;
+    String [] ImageStringUrl;
     acspinadapter objacspinadapter;
     Button btnaddprod;
     ProgressDialog pd;
@@ -206,6 +213,15 @@ public class ProductActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void btn_Image(View v)
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
     }
 
     public class asynccls extends AsyncTask<String,Void,String>
@@ -524,6 +540,7 @@ public class ProductActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+
             pd.dismiss();
             try {
                 startActivity(new Intent(ProductActivity.this,DisplayProductActivity.class));

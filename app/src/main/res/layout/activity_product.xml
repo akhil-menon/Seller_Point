@@ -220,10 +220,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp">
 
-                <ImageButton
+                <Button
+                    android:id="@+id/imgbtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/image"/>
+                    android:onClick="btn_Image"
+                    android:text="Select Product Image"
+                    android:textAlignment="center"
+                    android:background="@color/colorPrimaryDark"/>
 
             </android.support.design.widget.TextInputLayout>
 

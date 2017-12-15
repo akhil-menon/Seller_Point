@@ -1,6 +1,7 @@
 package com.example.root.seller_point;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    SharedPreferences pref;
     Button btn;
     gridfrontadapter objgridadp;
     GridView frontgv;
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        pref = getSharedPreferences("User",MODE_PRIVATE);
+
+        Toast.makeText(this,"Welcome "+pref.getString("UserName",""),Toast.LENGTH_LONG).show();
         objgridadp = new gridfrontadapter(this,gridViewString,gridViewImageId);
 
         frontgv = findViewById(R.id.grid_view_image_text);
@@ -113,6 +118,10 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this,ProfileActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_logout) {
+
+            SharedPreferences.Editor edit = pref.edit();
+            edit.clear();
+            edit.commit();
             Intent i = new Intent(this,LoginActivity.class);
             startActivity(i);
         } else if (id == R.id.product) {
