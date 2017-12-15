@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:background="#fff"
+            android:elevation="8dp"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/imgbtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="3dp"
+                android:layout_marginLeft="350dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/ic_dots"/>
+
+            <TextView
+                android:id="@+id/offer_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Title"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/offer_desc"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:text="Offer_Description"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/offer_discount"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="5dp"
+                android:text="Offer_Price"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/offer_discount"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="Product Name" />
+
+            <TextView
+                android:id="@+id/offer_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/product_name"
+                android:clickable="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/colorGreen"
+                android:text="Available" />
+
+            <TextView
+                android:id="@+id/offer_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/product_name"
+                android:layout_toRightOf="@+id/offer_available"
+                android:clickable="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="170dp"
+                android:textColor="@color/colorGreen"
+                android:text="Active" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

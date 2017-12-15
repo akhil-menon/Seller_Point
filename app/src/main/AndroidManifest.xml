@@ -45,9 +45,15 @@
         <activity
             android:name=".RegistrationActivity"
             android:theme="@style/LogInAppTheme" />
-        <activity android:name=".DisplayDetailActivity" />
+        <activity android:name=".DisplayDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayProductActivity" />
+        </activity>
         <activity android:name=".OfferActivity" />
-        <activity android:name=".OfferDisplayActivity"></activity>
+        <activity android:name=".OfferDisplayActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -99,6 +100,8 @@ public class DisplayProductActivity extends AppCompatActivity{
                     map.put("Desc",jsonObject1.getString("Description"));
                     map.put("Price",jsonObject1.getString("Price"));
                     map.put("Discount",jsonObject1.getString("Flat_Discount"));
+                    map.put("Stock",jsonObject1.getString("Stock"));
+                    map.put("IsActive",jsonObject1.getString("Is_Active"));
 
                     list.add(map);
                 }
