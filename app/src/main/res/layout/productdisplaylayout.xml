@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/android_card_view_example1"
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -18,7 +18,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="145dp"
+                android:layout_height="175dp"
                 android:background="#fff"
                 android:elevation="8dp"
                 android:padding="10dp">
@@ -85,6 +85,31 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="5dp"
                     android:text="Mobile" />
+
+                <TextView
+                    android:id="@+id/prod_stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prod_category"
+                    android:layout_toRightOf="@+id/viewline"
+                    android:clickable="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/colorGreen"
+                    android:text="Stock" />
+
+                <TextView
+                    android:id="@+id/prod_active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prod_category"
+                    android:layout_toRightOf="@+id/prod_stock"
+                    android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:textDirection="rtl"
+                    android:layout_marginLeft="90dp"
+                    android:textColor="@color/colorGreen"
+                    android:text="Active" />
 
                 <ImageView
                     android:id="@+id/prod_image"
