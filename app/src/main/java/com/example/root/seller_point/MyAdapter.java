@@ -1,10 +1,12 @@
 package com.example.root.seller_point;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
@@ -141,6 +143,19 @@ public class MyAdapter extends BaseAdapter {
                             intent.putExtra("id",Integer.parseInt(map.get("ID")+""));
                             context.startActivity(intent);
                         }
+                        else if(item.getItemId() == R.id.AddImage)
+                        {
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            ((Activity)context).startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
+
+                            SharedPreferences pref = context.getSharedPreferences("Prod",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edit = pref.edit();
+                            edit.putInt("ProdID",Integer.parseInt(map.get("ID")));
+                            edit.commit();
+                        }
                         return true;
                     }
                 });
@@ -202,6 +217,7 @@ public class MyAdapter extends BaseAdapter {
 
         return view;
     }
+
 
     public class delasynccls extends AsyncTask<String,Void,String>
     {

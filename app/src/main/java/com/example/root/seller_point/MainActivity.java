@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    SharedPreferences pref;
     Button btn;
     GridView gv;
     acgridadapter objMyAdapter;
@@ -56,9 +58,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        pref = getSharedPreferences("User",MODE_PRIVATE);
 
+        Toast.makeText(this,"Welcome "+pref.getString("UserName",""),Toast.LENGTH_LONG).show();
         gv = findViewById(R.id.grid_view_image_text);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 pos = i;
@@ -150,6 +155,10 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this,ProfileActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_logout) {
+
+            SharedPreferences.Editor edit = pref.edit();
+            edit.clear();
+            edit.commit();
             Intent i = new Intent(this,LoginActivity.class);
             startActivity(i);
         } else if (id == R.id.product) {

@@ -14,4 +14,10 @@
         android:id="@+id/Offer"
         android:orderInCategory="102"
         android:title="Add Offer"/>
+
+    <item
+        android:id="@+id/AddImage"
+        android:orderInCategory="103"
+        android:title="Upload Image"
+        />
 </menu>
