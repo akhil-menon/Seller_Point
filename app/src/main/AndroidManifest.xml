@@ -52,9 +52,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayProductActivity" />
         </activity>
-        <activity android:name=".OfferActivity" />
+        <activity android:name=".OfferActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OfferDisplayActivity" />
+        </activity>
         <activity android:name=".OfferDisplayActivity">
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayProductActivity" />
         </activity>
     </application>
 
