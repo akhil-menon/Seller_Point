@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -103,17 +104,27 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ProductActivity.this);
-                builder.setMultiChoiceItems(acspinlist, acspinlistchk, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                        acspinlistchk[i] = b;
-                    }
-                });
+
+                if(acspinlist.length ==0)
+                {
+                    builder.setTitle("Alert!!");
+                    builder.setMessage("Add Account(s) to Insert Product");
+                }
+                else
+                {
+                    builder.setTitle("Accounts on Which you want to insert");
+                    builder.setMultiChoiceItems(acspinlist, acspinlistchk, new DialogInterface.OnMultiChoiceClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                            acspinlistchk[i] = b;
+                        }
+                    });
+                }
+
                 // Specify the dialog is not cancelable
                 builder.setCancelable(false);
 
                 // Set a title for alert dialog
-                builder.setTitle("Accounts on Which you want to insert");
 
                 // Set the positive/yes button click listener
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -175,6 +186,7 @@ public class ProductActivity extends AppCompatActivity {
 
     public void btnaddprod_Click(View v)
     {
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
         HashMap<String,String> catg = spinlist.get(Integer.parseInt(spincategory.getSelectedItemId()+""));
         HashMap<String,String> subcatg = new HashMap<String, String>();
         if(Integer.parseInt(spincategory.getSelectedItemId()+"") !=1)
@@ -204,7 +216,8 @@ public class ProductActivity extends AppCompatActivity {
             if(pos == 0){
                 new insasynccls().execute(txtprodname.getText().toString(), catg.get("ID"), subcatg.get("ID"),
                         txtstock.getText().toString(), spinmaxbuyqty.getSelectedItem().toString(), txtdesc.getText().toString(),
-                        txtdiscount.getText().toString(), txtcashoff.getText().toString(), txtprice.getText().toString(), shipcharge,id[i]+"");
+                        txtdiscount.getText().toString(), txtcashoff.getText().toString(), txtprice.getText().toString(), shipcharge,id[i]+"",
+                        pref.getInt("UserID",0)+"");
             }
             else{
                 new updasynccls().execute(pos+"",txtprodname.getText().toString(), catg.get("ID"), subcatg.get("ID"),
@@ -395,10 +408,11 @@ public class ProductActivity extends AppCompatActivity {
     public class acspinasynccls extends AsyncTask<String,Void,String>
     {
 
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"/api/tblAccountType";
+            String link = getResources().getString(R.string.URL)+"/api/tblUserAccounts%20a,tblAccountType%20at,tblUser%20s/at.ID,at.Name,a.UserID/at.ID~a.AccountType,s.UserID~a.UserID,a.UserID~"+pref.getInt("UserID",0);
             try {
                 URL url = new URL(link);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -504,7 +518,8 @@ public class ProductActivity extends AppCompatActivity {
                         .appendQueryParameter("Cash_Discount",params[7])
                         .appendQueryParameter("Price",params[8])
                         .appendQueryParameter("Shipping_Charge",params[9])
-                        .appendQueryParameter("AccountID",params[10]);
+                        .appendQueryParameter("AccountID",params[10])
+                        .appendQueryParameter("UserID",params[11]);
 
                 String qry = builder.build().getEncodedQuery();
 

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     acgridadapter objMyAdapter;
     Dialog myDialog;
     ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
-    int pos = 0,userid = 1,acid = 0;
+    int pos = 0,acid = 0;
     ProgressDialog pd;
 
     @Override
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new insasynccls().execute(acid+"",email.getText().toString(),password.getText().toString());
+                new insasynccls().execute(acid+"",email.getText().toString(),password.getText().toString(),pref.getInt("UserID",0)+"");
             }
         });
 
@@ -204,7 +204,8 @@ public class MainActivity extends AppCompatActivity
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("AccountType",params[0])
                         .appendQueryParameter("Email",params[1])
-                        .appendQueryParameter("Password",params[2]);
+                        .appendQueryParameter("Password",params[2])
+                        .appendQueryParameter("UserID",params[3]);
 
                 String qry = builder.build().getEncodedQuery();
 
@@ -326,7 +327,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblUserAccounts/UserID~"+userid;
+            String link = getResources().getString(R.string.URL)+"api/tblUserAccounts/UserID~"+pref.getInt("UserID",0);
 
             try {
                 URL url = new URL(link);
@@ -377,7 +378,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 if(flag == 1){
-                    callLoginDialog(userid);
+                    callLoginDialog(pref.getInt("UserID",0));
                 }
 
             } catch (JSONException e) {

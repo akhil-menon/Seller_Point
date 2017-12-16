@@ -1,6 +1,7 @@
 package com.example.root.seller_point;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ public class OfferDisplayActivity extends AppCompatActivity {
 
     public class DisplayTask extends AsyncTask<String,Void,String>
     {
+
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -44,7 +48,7 @@ public class OfferDisplayActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblOffer%20o,tblProduct%20p/o.*,p.Name%20as%20ProductName/o.ProdID~p.ID";
+            String link = getResources().getString(R.string.URL)+"api/tblOffer%20o,tblProduct%20p,tblUser%20s/o.*,p.Name%20as%20ProductName/o.ProdID~p.ID,s.UserID~o.UserID,o.UserID~"+pref.getInt("UserID",0);
 
             try {
                 URL url = new URL(link);

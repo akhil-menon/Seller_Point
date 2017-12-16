@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -54,12 +55,13 @@ public class OfferActivity extends AppCompatActivity {
             new DisplayTask().execute(offerid+"");
         }
 
+        final SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
         btnaddoffer = findViewById(R.id.btnaddoffer);
         btnaddoffer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             if(pos != 0 && offerid == 0){
-                new insasynccls().execute(txtoffername.getText().toString(),txtofferdesc.getText().toString(),txtoffer.getText().toString(),pos+"");
+                new insasynccls().execute(txtoffername.getText().toString(),txtofferdesc.getText().toString(),txtoffer.getText().toString(),pos+"",pref.getInt("UserID",0)+"");
             }
             else{
                 new updasynccls().execute(offerid+"",txtoffername.getText().toString(),txtofferdesc.getText().toString(),txtoffer.getText().toString(),pos+"");
@@ -99,7 +101,8 @@ public class OfferActivity extends AppCompatActivity {
                         .appendQueryParameter("Name",params[0])
                         .appendQueryParameter("Desc",params[1])
                         .appendQueryParameter("Discount",params[2])
-                        .appendQueryParameter("ProdID",params[3]);
+                        .appendQueryParameter("ProdID",params[3])
+                        .appendQueryParameter("UserID",params[4]);
 
                 String qry = builder.build().getEncodedQuery();
 
