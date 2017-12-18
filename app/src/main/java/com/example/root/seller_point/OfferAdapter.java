@@ -33,7 +33,8 @@ import java.util.HashMap;
  * Created by root on 14/12/17.
  */
 
-public class OfferAdapter extends BaseAdapter {
+public class OfferAdapter extends BaseAdapter
+{
 
     Context context;
     ArrayList<HashMap<String,String>> list;

@@ -215,21 +215,21 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="30dp">-->
 
-                <Button
-                    android:id="@+id/imgbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="btn_Image"
-                    android:text="Select Product Image"
-                    android:textAlignment="center"
-                    android:background="@color/colorPrimaryDark"/>
+                <!--<Button-->
+                    <!--android:id="@+id/imgbtn"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:onClick="btn_Image"-->
+                    <!--android:text="Select Product Image"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:background="@color/colorPrimaryDark"/>-->
 
-            </android.support.design.widget.TextInputLayout>
+            <!--</android.support.design.widget.TextInputLayout>-->
 
             <Button
                 android:id="@+id/btnaddprod"

@@ -26,7 +26,7 @@
             android:drawableLeft="@drawable/ic_user_male"
             android:hint="   Username"
             android:inputType="textPersonName"
-            android:textColor="#cccccc"
+            android:textColor="#ffffff"
             android:textSize="20sp" />
 
     </android.support.design.widget.TextInputLayout>
@@ -45,7 +45,7 @@
             android:drawableLeft="@drawable/ic_lock_1"
             android:hint="   Password"
             android:inputType="textPassword"
-            android:textColor="#cccccc"
+            android:textColor="#ffffff"
             android:textSize="20sp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -69,13 +69,13 @@
 
     <TextView
         android:id="@+id/txtreg"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginTop="15dp"
+        android:clickable="true"
         android:text="Register Now"
-        android:textColor="#ffffff"
         android:textAlignment="center"
+        android:textColor="#ffffff"
         android:textSize="16sp" />
 </LinearLayout>

@@ -112,33 +112,41 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(result);
 
-                for(int i = 0;i<jsonArray.length();i++)
+                if(jsonArray.length() > 0 )
                 {
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                    for(int i = 0;i<jsonArray.length();i++)
+                    {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
-                    map.put("ID",jsonObject1.getString("UserID"));
-                    map.put("Username",jsonObject1.getString("UserName"));
-                }
+                        map.put("ID",jsonObject1.getString("UserID"));
+                        map.put("Username",jsonObject1.getString("UserName"));
+                    }
 
-                SharedPreferences loginpref = getSharedPreferences("User",MODE_PRIVATE);
-                SharedPreferences.Editor edit;
+                    SharedPreferences loginpref = getSharedPreferences("User",MODE_PRIVATE);
+                    SharedPreferences.Editor edit;
 
-                if(!map.get("ID").equals(""))
-                {
-                    edit = loginpref.edit();
-                    edit.putInt("UserID",Integer.parseInt(map.get("ID")));
-                    edit.putString("UserName",map.get("Username"));
-                    edit.commit();
-                }
+                    if(!map.get("ID").equals(""))
+                    {
+                        edit = loginpref.edit();
+                        edit.putInt("UserID",Integer.parseInt(map.get("ID")));
+                        edit.putString("UserName",map.get("Username"));
+                        edit.commit();
+                    }
 
-                if(loginpref.getInt("UserID",0) != 0)
-                {
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    if(loginpref.getInt("UserID",0) != 0)
+                    {
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginActivity.this,"Something Went Wrong Try Again",Toast.LENGTH_LONG).show();
+                    }
                 }
                 else
                 {
-                    Toast.makeText(LoginActivity.this,"Something Went Wrong Try Again",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Either Username or Password Incorrect",Toast.LENGTH_LONG).show();
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

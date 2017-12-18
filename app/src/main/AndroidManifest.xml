@@ -19,7 +19,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
-            android:theme="@style/ProfileTheme">
+            android:theme="@style/ProfileTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -33,12 +33,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductActivity">
+        <activity android:name=".ProductActivity"
+            android:label="Product">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayProductActivity" />
+                android:value=".DisplayProductActivity"
+                />
         </activity>
-        <activity android:name=".DisplayProductActivity">
+        <activity android:name=".DisplayProductActivity"
+            android:label="Products">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -50,27 +54,27 @@
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:theme="@style/LogInAppTheme" />
+            android:theme="@style/LogInAppTheme"
+            android:label="Registration"/>
         <activity android:name=".DisplayDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayProductActivity" />
         </activity>
-        <activity android:name=".OfferActivity">
+        <activity android:name=".OfferActivity"
+            android:label="Offer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OfferDisplayActivity" />
         </activity>
-        <activity android:name=".OfferDisplayActivity">
+        <activity android:name=".OfferDisplayActivity"
+            android:label="Offers">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayProductActivity" />
         </activity>
-        <activity android:name=".AccountDetailActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
+        <activity android:name=".SalesActivity"
+            android:label="Sales"></activity>
     </application>
 
 </manifest>

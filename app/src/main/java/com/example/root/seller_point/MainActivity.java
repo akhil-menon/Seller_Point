@@ -43,6 +43,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView appusername;
     SharedPreferences pref;
     Button btn;
     GridView gv;
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+/*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+        appusername = (TextView)header.findViewById(R.id.appusername);
+        appusername.setText("   "+pref.getString("UserName",""));
 
         new DisplayTask().execute();
     }
@@ -118,27 +122,27 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -154,14 +158,19 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor edit = pref.edit();
             edit.clear();
             edit.commit();
-            Intent i = new Intent(this,LoginActivity.class);
-            startActivity(i);
+            finish();
+//            Intent i = new Intent(this,LoginActivity.class);
+//            startActivity(i);
         } else if (id == R.id.product) {
             Intent i = new Intent(this,DisplayProductActivity.class);
             startActivity(i);
         } else if (id == R.id.offer) {
             Intent i = new Intent(this,OfferDisplayActivity.class);
             startActivity(i);
+        }
+        else if(id == R.id.sales)
+        {
+            startActivity(new Intent(this,SalesActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -375,7 +384,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
 
-                if(flag == 1){
+                if(flag == 1 || jsonArray.length() == 0){
                     callLoginDialog(pref.getInt("UserID",0));
                 }
 

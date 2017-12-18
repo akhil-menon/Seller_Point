@@ -16,28 +16,33 @@
             android:id="@+id/offer"
             android:icon="@drawable/ic_menu_camera"
             android:title="Offers" />
+        <item
+            android:id="@+id/sales"
+            android:title="Sales"
+            android:icon="@drawable/ic_menu_camera"
+            />
     </group>
 
-    <item android:title="Accounts">
-        <menu>
-            <item
-                android:id="@+id/nav_amazon"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Amazon" />
-            <item
-                android:id="@+id/nav_flipkart"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Flipkart" />
-            <item
-                android:id="@+id/nav_ebay"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Ebay" />
-            <item
-                android:id="@+id/nav_snapdeal"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Snapdeal" />
-        </menu>
-    </item>
+    <!--<item android:title="Accounts">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_amazon"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Amazon" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_flipkart"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Flipkart" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_ebay"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Ebay" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_snapdeal"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Snapdeal" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
     <group android:checkableBehavior="single">
         <item
