@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity
 
                     if(acid == Integer.parseInt(jsonObject1.getString("AccountType"))){
                         Toast.makeText(MainActivity.this,acid+"",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this,AccountDetailActivity.class);
+                        Intent intent = new Intent(MainActivity.this,AccountDetail2Activity.class);
                         intent.putExtra("ID",acid);
                         startActivity(intent);
                         flag = 0;
