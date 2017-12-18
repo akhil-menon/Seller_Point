@@ -170,7 +170,7 @@ public class MyAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context,DisplayDetailActivity.class);
                 HashMap<String,String> map = list.get(pos);
-                intent.putExtra("ID",map.get("ID"));
+                intent.putExtra("ID",Integer.parseInt(map.get("ID")));
                 context.startActivity(intent);
             }
         });
@@ -189,7 +189,6 @@ public class MyAdapter extends BaseAdapter {
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(context,input.getText().toString(),Toast.LENGTH_SHORT).show();
                         new updasynccls().execute(map.get("ID").toString(),input.getText().toString());
                     }
                 });

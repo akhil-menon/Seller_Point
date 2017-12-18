@@ -67,15 +67,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 pos = i;
-                HashMap<String,String>map = list.get(pos);
+                HashMap<String, String> map = list.get(pos);
                 acid = Integer.parseInt(map.get("ID").toString());
-                Toast.makeText(MainActivity.this,map.get("ID"),Toast.LENGTH_SHORT).show();
-                if(true){
-                    new chkacloginTask().execute();
-                }
-                else{
-
-                }
+                Toast.makeText(MainActivity.this, map.get("ID"), Toast.LENGTH_SHORT).show();
+                new chkacloginTask().execute();
             }
         });
 
@@ -368,6 +363,9 @@ public class MainActivity extends AppCompatActivity
 
                     if(acid == Integer.parseInt(jsonObject1.getString("AccountType"))){
                         Toast.makeText(MainActivity.this,acid+"",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this,AccountDetailActivity.class);
+                        intent.putExtra("ID",acid);
+                        startActivity(intent);
                         flag = 0;
                         break;
                     }

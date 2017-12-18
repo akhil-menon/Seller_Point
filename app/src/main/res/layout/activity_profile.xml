@@ -33,7 +33,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="126dp"
             android:text="Akhil Menon"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="24sp" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="156dp"
             android:text="+000000000000"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
@@ -54,7 +54,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="176dp"
             android:text="akhil@gmail.com"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="14sp"
             android:textStyle="bold"/>
 
