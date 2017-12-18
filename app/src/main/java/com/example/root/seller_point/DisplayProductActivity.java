@@ -38,6 +38,8 @@ public class DisplayProductActivity extends AppCompatActivity{
     MyAdapter objMyAdapter;
     ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
     String [] ImageStringUrl;
+    String link = "";
+    int acid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,18 @@ public class DisplayProductActivity extends AppCompatActivity{
 
         fabAddProd = findViewById(R.id.fabAddProduct);
         lv = findViewById(R.id.listprod);
+
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+
+        Intent intent = getIntent();
+        acid = intent.getIntExtra("ID",0);
+
+        if(acid == 0){
+            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName/p.Category~c.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0);
+        }
+        else{
+            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName/p.Category~c.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0)+",p.AccountID~"+acid;
+        }
 
         new DisplayTask().execute();
     }
@@ -148,8 +162,6 @@ public class DisplayProductActivity extends AppCompatActivity{
     public class DisplayTask extends AsyncTask<String,Void,String>
     {
 
-        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -158,7 +170,7 @@ public class DisplayProductActivity extends AppCompatActivity{
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName/p.Category~c.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0);
+//            link = getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName/p.Category~c.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0);
 
             try {
                 URL url = new URL(link);

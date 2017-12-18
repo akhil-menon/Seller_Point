@@ -18,9 +18,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
-public class AccountDetailActivity extends AppCompatActivity {
+public class AccountDetail2Activity extends AppCompatActivity {
 
     TextView txtproducts,txtoffers,txtreturns,txtaccount;
     ImageView img;
@@ -29,12 +28,13 @@ public class AccountDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_detail);
+        setContentView(R.layout.activity_account_detail2);
 
-        txtproducts = findViewById(R.id.txtproduct);
+        txtproducts = findViewById(R.id.products);
         txtoffers = findViewById(R.id.txtoffer);
         txtreturns= findViewById(R.id.txtreturn);
         txtaccount = findViewById(R.id.account_name);
+        img = findViewById(R.id.user_profile_photo);
 
         Intent intent = getIntent();
         acid = intent.getIntExtra("ID",0);
@@ -43,19 +43,19 @@ public class AccountDetailActivity extends AppCompatActivity {
     }
 
     public void txtprodclick(View view){
-        Intent intent = new Intent(AccountDetailActivity.this,DisplayProductActivity.class);
+        Intent intent = new Intent(this,DisplayProductActivity.class);
         intent.putExtra("ID",acid);
         startActivity(intent);
     }
 
     public void txtofferclick(View view){
-        Intent intent = new Intent(AccountDetailActivity.this,DisplayProductActivity.class);
+        Intent intent = new Intent(this,DisplayProductActivity.class);
         intent.putExtra("ID",acid);
         startActivity(intent);
     }
 
     public void txtreturnclick(View view){
-        Intent intent = new Intent(AccountDetailActivity.this,DisplayProductActivity.class);
+        Intent intent = new Intent(this,DisplayProductActivity.class);
         intent.putExtra("ID",acid);
         startActivity(intent);
     }
@@ -73,7 +73,7 @@ public class AccountDetailActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblUserAccounts ua,tblAccounts a/a.Name/ua.AccountType~a.Name,ua.UserID~"+pref.getInt("UserID",0)+",a.AccountType~"+acid+"";
+            String link = getResources().getString(R.string.URL)+"AccountDetail/"+pref.getInt("UserID",0)+"/"+acid+"";
 
             try {
                 URL url = new URL(link);
@@ -112,8 +112,20 @@ public class AccountDetailActivity extends AppCompatActivity {
                 {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
-                    txtaccount.setText(jsonObject1.getString("a.Name"));
+                    txtaccount.setText(jsonObject1.getString("Name"));
+                    txtproducts.append(" : "+jsonObject1.getString("ProductCount"));
                 }
+
+//                if(txtaccount.getText().equals("Flipkart"))
+//                    img.setImageResource(R.mipmap.flipkart);
+//                else if(txtaccount.getText().equals("Amazon"))
+//                    img.setImageResource(R.mipmap.amazon);
+//                else if(txtaccount.getText().equals("Ebay"))
+//                    img.setImageResource(R.mipmap.ebay);
+//                else if(txtaccount.getText().equals("Snapdeal"))
+//                    img.setImageResource(R.mipmap.snapdeal);
+//                else if(txtaccount.getText().equals("Shopclues"))
+//                    img.setImageResource(R.mipmap.shopclues);
 
             } catch (JSONException e) {
                 e.printStackTrace();

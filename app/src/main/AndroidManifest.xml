@@ -16,16 +16,19 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileActivity"
-            android:theme="@style/ProfileTheme" >
+            android:screenOrientation="portrait"
+            android:theme="@style/ProfileTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/LogInAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,48 +36,67 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProductActivity"
-            android:label="Product">
-
+        <activity
+            android:name=".ProductActivity"
+            android:label="Product"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DisplayProductActivity"
-                />
+                android:value=".DisplayProductActivity" />
         </activity>
-        <activity android:name=".DisplayProductActivity"
-            android:label="Products">
+        <activity
+            android:name=".DisplayProductActivity"
+            android:label="Products"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".AcProductActivity">
+        <activity
+            android:name=".AcProductActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:theme="@style/LogInAppTheme"
-            android:label="Registration"/>
-        <activity android:name=".DisplayDetailActivity">
+            android:label="Registration"
+            android:screenOrientation="portrait"
+            android:theme="@style/LogInAppTheme" />
+        <activity
+            android:name=".DisplayDetailActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayProductActivity" />
         </activity>
-        <activity android:name=".OfferActivity"
-            android:label="Offer">
+        <activity
+            android:name=".OfferActivity"
+            android:label="Offer"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OfferDisplayActivity" />
         </activity>
-        <activity android:name=".OfferDisplayActivity"
-            android:label="Offers">
+        <activity
+            android:name=".OfferDisplayActivity"
+            android:label="Offers"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayProductActivity" />
         </activity>
-        <activity android:name=".SalesActivity"
-            android:label="Sales"></activity>
+        <activity
+            android:name=".SalesActivity"
+            android:label="Sales"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AccountDetail2Activity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
