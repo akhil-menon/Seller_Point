@@ -71,6 +71,8 @@
                     android:layout_marginLeft="245dp"
                     android:layout_marginTop="5dp"
                     android:text="View More"
+                    android:clickable="true"
+                    android:onClick="txtprodclick"
                     android:textSize="15dp"/>
 
                 <View
@@ -89,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
+                    android:padding="5dp"
                     android:text="Products Uploaded"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -122,6 +125,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="245dp"
                     android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:onClick="txtofferclick"
                     android:text="View More"
                     android:textSize="15dp"/>
 
@@ -141,6 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
+                    android:padding="5dp"
                     android:text="Offers given"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -174,6 +180,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="245dp"
                     android:layout_marginTop="5dp"
+                    android:clickable="true"
+                    android:onClick="txtreturnclick"
                     android:text="View More"
                     android:textSize="15dp"/>
 
@@ -194,6 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
                     android:text="Returned Product"
+                    android:padding="5dp"
                     android:textSize="15sp"
                     android:textStyle="normal" />
 

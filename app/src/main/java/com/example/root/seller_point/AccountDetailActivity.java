@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,24 @@ public class AccountDetailActivity extends AppCompatActivity {
         acid = intent.getIntExtra("ID",0);
 
         new DisplayTask().execute();
+    }
+
+    public void txtprodclick(View view){
+        Intent intent = new Intent(AccountDetailActivity.this,DisplayProductActivity.class);
+        intent.putExtra("ID",acid);
+        startActivity(intent);
+    }
+
+    public void txtofferclick(View view){
+        Intent intent = new Intent(AccountDetailActivity.this,DisplayProductActivity.class);
+        intent.putExtra("ID",acid);
+        startActivity(intent);
+    }
+
+    public void txtreturnclick(View view){
+        Intent intent = new Intent(AccountDetailActivity.this,DisplayProductActivity.class);
+        intent.putExtra("ID",acid);
+        startActivity(intent);
     }
 
     public class DisplayTask extends AsyncTask<String,Void,String>
