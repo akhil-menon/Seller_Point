@@ -1,12 +1,11 @@
 package com.example.root.seller_point;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -14,32 +13,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ProfileActivity extends AppCompatActivity {
+public class AccountDetailActivity extends AppCompatActivity {
 
-    TextView txtname,txtemail,txtmobile;
+    TextView txtproducts,txtoffers,txtreturns,txtaccount;
+    ImageView img;
+    int acid=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_account_detail);
 
-        txtname = findViewById(R.id.user_profile_name);
-        txtemail = findViewById(R.id.user_profile_email);
-        txtmobile = findViewById(R.id.user_profile_mobile);
+        txtproducts = findViewById(R.id.txtproduct);
+        txtoffers = findViewById(R.id.txtoffer);
+        txtreturns= findViewById(R.id.txtreturn);
+        txtaccount = findViewById(R.id.account_name);
 
-        new userasynccls().execute();
+        Intent intent = getIntent();
+        acid = intent.getIntExtra("ID",0);
+
+        new DisplayTask().execute();
     }
 
-    public class userasynccls extends AsyncTask<String,Void,String>
+    public class DisplayTask extends AsyncTask<String,Void,String>
     {
 
         SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
@@ -52,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblUser/UserID~"+pref.getInt("UserID",0);
+            String link = getResources().getString(R.string.URL)+"api/tblUserAccounts ua,tblAccounts a/a.Name/ua.AccountType~a.Name,ua.UserID~"+pref.getInt("UserID",0)+",a.AccountType~"+acid+"";
 
             try {
                 URL url = new URL(link);
@@ -91,10 +93,9 @@ public class ProfileActivity extends AppCompatActivity {
                 {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
-                    txtname.setText(jsonObject1.getString("Name"));
-                    txtemail.setText(jsonObject1.getString("Email"));
-                    txtmobile.setText(jsonObject1.getString("Mobile"));
+                    txtaccount.setText(jsonObject1.getString("a.Name"));
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -102,5 +103,4 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
     }
-
 }
