@@ -55,10 +55,10 @@ public class DisplayProductActivity extends AppCompatActivity{
         acid = intent.getIntExtra("ID",0);
 
         if(acid == 0){
-            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName/p.Category~c.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0);
+            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblAccountType%20a,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName,a.Name%20as%20Account/p.Category~c.ID,p.AccountID~a.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0);
         }
         else{
-            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName/p.Category~c.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0)+",p.AccountID~"+acid;
+            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblAccountType%20a,tblCategory%20c,tblUser%20s/p.*,c.Name%20as%20CategoryName,a.Name%20as%20Account/p.Category~c.ID,p.AccountID~a.ID,p.User_ID~s.UserID,s.UserID~"+pref.getInt("UserID",0)+",p.AccountID~"+acid+",a.ID~"+acid;
         }
 
         new DisplayTask().execute();
@@ -218,6 +218,7 @@ public class DisplayProductActivity extends AppCompatActivity{
                     map.put("Discount",jsonObject1.getString("Flat_Discount"));
                     map.put("Stock",jsonObject1.getString("Stock"));
                     map.put("IsActive",jsonObject1.getString("Is_Active"));
+                    map.put("Account",jsonObject1.getString("Account"));
 
                     list.add(map);
                 }

@@ -78,6 +78,7 @@ public class MyAdapter extends BaseAdapter {
         TextView proddiscount= view.findViewById(R.id.prod_Discount);
         TextView prodstock= view.findViewById(R.id.prod_stock);
         TextView prodactive= view.findViewById(R.id.prod_active);
+        TextView prodaccount = view.findViewById(R.id.prod_account);
 
         final ImageButton imgbtn = view.findViewById(R.id.imgbtn);
         final int pos = i;
@@ -89,6 +90,7 @@ public class MyAdapter extends BaseAdapter {
         prodcategory.setText(map.get("Category"));
         prodprice.setText(map.get("Price"));
         proddiscount.setText(map.get("Discount")+"% discount");
+        prodaccount.setText(map.get("Account"));
 
         if(Integer.parseInt(map.get("Stock").toString()) != 0) {
             prodstock.setText("In Stock("+map.get("Stock")+")");
