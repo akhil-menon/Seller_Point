@@ -62,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Products"
+                    android:textStyle="bold"
                     android:textSize="20dp"/>
 
                 <TextView
@@ -72,6 +73,7 @@
                     android:layout_marginTop="5dp"
                     android:text="View More"
                     android:clickable="true"
+                    android:visibility="invisible"
                     android:onClick="txtprodclick"
                     android:textSize="15dp"/>
 
@@ -99,61 +101,6 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/offercardview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:focusable="true"
-                android:clickable="true"
-                android:background="?android:attr/selectableItemBackground"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="2dp">
-
-                <TextView
-                    android:id="@+id/txtoffer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Offers"
-                    android:textSize="20dp"/>
-
-                <TextView
-                    android:id="@+id/txtviewreturn2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="245dp"
-                    android:layout_marginTop="5dp"
-                    android:clickable="true"
-                    android:onClick="txtofferclick"
-                    android:text="View More"
-                    android:textSize="15dp"/>
-
-                <View
-                    android:id="@+id/viewline2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="#cccccc"
-                    />
-
-                <TextView
-                    android:id="@+id/offers"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:padding="5dp"
-                    android:text="Offers given"
-                    android:textSize="15sp"
-                    android:textStyle="normal" />
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
                 android:id="@+id/returncardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,6 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Returns"
+                    android:textStyle="bold"
                     android:textSize="20dp"/>
 
                 <TextView
@@ -181,6 +129,7 @@
                     android:layout_marginLeft="245dp"
                     android:layout_marginTop="5dp"
                     android:clickable="true"
+                    android:visibility="invisible"
                     android:onClick="txtreturnclick"
                     android:text="View More"
                     android:textSize="15dp"/>
@@ -201,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
-                    android:text="Returned Product"
+                    android:text="Returned Product : No Products Returned"
                     android:padding="5dp"
                     android:textSize="15sp"
                     android:textStyle="normal" />

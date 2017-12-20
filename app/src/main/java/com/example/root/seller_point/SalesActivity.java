@@ -1,5 +1,6 @@
 package com.example.root.seller_point;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ public class SalesActivity extends AppCompatActivity {
     ListView lv;
     SalesAdapter objsalesadapter;
     ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
+    int acid = 0;
+    String link = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,18 @@ public class SalesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sales);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
+
+        Intent intent = getIntent();
+        acid = intent.getIntExtra("ID",0);
+
+        if(acid == 0){
+            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblSales%20s,tblAccountType%20at/s.*,p.Name%20ProductName,at.Name%20AccountName/p.ID~s.ProdID,p.AccountID~at.ID";
+        }
+        else{
+            link=getResources().getString(R.string.URL)+"api/tblProduct%20p,tblSales%20s,tblAccountType%20at/s.*,p.Name%20ProductName,at.Name%20AccountName/p.ID~s.ProdID,p.AccountID~at.ID,s.isReturn~1,at.ID~"+acid;
+        }
 
         lv = findViewById(R.id.listsales);
         new DisplayTask().execute();
@@ -51,8 +66,6 @@ public class SalesActivity extends AppCompatActivity {
     public class DisplayTask extends AsyncTask<String,Void,String>
     {
 
-        SharedPreferences pref = getSharedPreferences("User",MODE_PRIVATE);
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -61,7 +74,7 @@ public class SalesActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblProduct%20p,tblSales%20s,tblAccountType%20at/s.*,p.Name%20ProductName,at.Name%20AccountName/p.ID~s.ProdID,p.AccountID~at.ID";
+//            String link = getResources().getString(R.string.URL)+"api/tblProduct%20p,tblSales%20s,tblAccountType%20at/s.*,p.Name%20ProductName,at.Name%20AccountName/p.ID~s.ProdID,p.AccountID~at.ID";
 
             try {
                 URL url = new URL(link);

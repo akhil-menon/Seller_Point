@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView txtname,txtemail,txtmobile;
+    TextView txtname,txtemail,txtmobile,txtaddress,txtaccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
         txtname = findViewById(R.id.user_profile_name);
         txtemail = findViewById(R.id.user_profile_email);
         txtmobile = findViewById(R.id.user_profile_mobile);
+        txtaddress = findViewById(R.id.address);
+        txtaccount = findViewById(R.id.account);
 
         new userasynccls().execute();
     }
@@ -52,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String response = "";
-            String link = getResources().getString(R.string.URL)+"api/tblUser/UserID~"+pref.getInt("UserID",0);
+            String link = getResources().getString(R.string.URL)+"api/tblUser%20u,tblUserAccounts%20ua,tblAccountType%20a/u.*,a.Name%20as%20AccountName/ua.AccountType~a.ID,ua.UserID~u.UserID,u.UserID~"+pref.getInt("UserID",0);
 
             try {
                 URL url = new URL(link);
@@ -91,9 +93,16 @@ public class ProfileActivity extends AppCompatActivity {
                 {
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
-                    txtname.setText(jsonObject1.getString("Name"));
-                    txtemail.setText(jsonObject1.getString("Email"));
-                    txtmobile.setText(jsonObject1.getString("Mobile"));
+                    if(i == 0){
+                        txtname.setText(jsonObject1.getString("Name"));
+                        txtemail.setText(jsonObject1.getString("Email"));
+                        txtmobile.setText(jsonObject1.getString("Mobile"));
+                        txtaddress.setText(jsonObject1.getString("Address"));
+                        txtaccount.setText(jsonObject1.getString("AccountName")+"\n");
+                    }else{
+                        txtaccount.append(jsonObject1.getString("AccountName")+"\n");
+                    }
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -21,7 +21,7 @@ import java.net.URL;
 
 public class AccountDetail2Activity extends AppCompatActivity {
 
-    TextView txtproducts,txtoffers,txtreturns,txtaccount;
+    TextView txtproducts,txtoffers,txtreturns,txtaccount,txtviewreturns,txtviewreturn1;
     ImageView img;
     int acid=0;
 
@@ -32,8 +32,10 @@ public class AccountDetail2Activity extends AppCompatActivity {
 
         txtproducts = findViewById(R.id.products);
         txtoffers = findViewById(R.id.txtoffer);
-        txtreturns= findViewById(R.id.txtreturn);
+        txtreturns= findViewById(R.id.txtprodreturn);
         txtaccount = findViewById(R.id.account_name);
+        txtviewreturns = findViewById(R.id.txtviewreturn3);
+        txtviewreturn1 = findViewById(R.id.txtviewreturn1);
         img = findViewById(R.id.user_profile_photo);
 
         Intent intent = getIntent();
@@ -55,7 +57,7 @@ public class AccountDetail2Activity extends AppCompatActivity {
     }
 
     public void txtreturnclick(View view){
-        Intent intent = new Intent(this,DisplayProductActivity.class);
+        Intent intent = new Intent(this,SalesActivity.class);
         intent.putExtra("ID",acid);
         startActivity(intent);
     }
@@ -108,24 +110,24 @@ public class AccountDetail2Activity extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(result);
 
-                for(int i = 0;i<jsonArray.length();i++)
-                {
-                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-
-                    txtaccount.setText(jsonObject1.getString("Name"));
-                    txtproducts.append(" : "+jsonObject1.getString("ProductCount"));
+                if(jsonArray.length() == 0){
+                    txtproducts.append(" : No Products Uploaded Yet");
                 }
 
-//                if(txtaccount.getText().equals("Flipkart"))
-//                    img.setImageResource(R.mipmap.flipkart);
-//                else if(txtaccount.getText().equals("Amazon"))
-//                    img.setImageResource(R.mipmap.amazon);
-//                else if(txtaccount.getText().equals("Ebay"))
-//                    img.setImageResource(R.mipmap.ebay);
-//                else if(txtaccount.getText().equals("Snapdeal"))
-//                    img.setImageResource(R.mipmap.snapdeal);
-//                else if(txtaccount.getText().equals("Shopclues"))
-//                    img.setImageResource(R.mipmap.shopclues);
+                for(int i = 0;i<jsonArray.length();i++) {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                    if (i == 0) {
+                        txtaccount.setText(jsonObject1.getString("Name"));
+                        txtproducts.append(" : " + jsonObject1.getString("ProductCount"));
+                        txtviewreturn1.setVisibility(View.VISIBLE);
+                    } else if(i == 1) {
+                        txtproducts.append("\n \nProduct Sales : " + jsonObject1.getString("ProductCount"));
+                    }else if(i == 2){
+                        txtreturns.setText("Returned Product : " + jsonObject1.getString("ProductCount"));
+                        txtviewreturns.setVisibility(View.VISIBLE);
+                    }
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
