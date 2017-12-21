@@ -73,6 +73,11 @@ public class DisplayDetailActivity extends AppCompatActivity {
         imageFlipper.startFlipping();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(DisplayDetailActivity.this,DisplayProductActivity.class));
+    }
+
     public class imgDisplayTask extends AsyncTask<String,Void,String>
     {
         @Override

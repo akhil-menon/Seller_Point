@@ -35,6 +35,11 @@ public class OfferDisplayActivity extends AppCompatActivity {
         new DisplayTask().execute();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(OfferDisplayActivity.this,MainActivity.class));
+    }
+
     public class DisplayTask extends AsyncTask<String,Void,String>
     {
 

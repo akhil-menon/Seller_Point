@@ -59,8 +59,7 @@ public class SalesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        startActivity(new Intent(SalesActivity.this,MainActivity.class));
     }
 
     public class DisplayTask extends AsyncTask<String,Void,String>

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                 pos = i;
                 HashMap<String, String> map = list.get(pos);
                 acid = Integer.parseInt(map.get("ID").toString());
-                Toast.makeText(MainActivity.this, map.get("ID"), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, map.get("ID"), Toast.LENGTH_SHORT).show();
                 new chkacloginTask().execute();
             }
         });
@@ -371,7 +371,7 @@ public class MainActivity extends AppCompatActivity
                     JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
                     if(acid == Integer.parseInt(jsonObject1.getString("AccountType"))){
-                        Toast.makeText(MainActivity.this,acid+"",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this,acid+"",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this,AccountDetail2Activity.class);
                         intent.putExtra("ID",acid);
                         startActivity(intent);

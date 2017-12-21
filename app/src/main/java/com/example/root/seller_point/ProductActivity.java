@@ -173,6 +173,11 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ProductActivity.this,DisplayProductActivity.class));
+    }
+
     public void Chkfreeship_click(View v){
         if(chkfreeship.isChecked()){
             txtshipcharge.setVisibility(View.VISIBLE);
@@ -718,7 +723,7 @@ public class ProductActivity extends AppCompatActivity {
                     map.put("Account",jsonObject1.getString("Account"));
                 }
 
-                Toast.makeText(ProductActivity.this,jsonArray+"",Toast.LENGTH_LONG).show();
+//                Toast.makeText(ProductActivity.this,jsonArray+"",Toast.LENGTH_LONG).show();
 
                 txtprodname.setText(map.get("Name"));
                 txtstock.setText(map.get("Stock"));

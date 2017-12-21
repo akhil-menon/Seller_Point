@@ -70,6 +70,11 @@ public class OfferActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(OfferActivity.this,DisplayProductActivity.class));
+    }
+
     public class insasynccls extends AsyncTask<String,Void,String>
     {
         @Override

@@ -64,6 +64,11 @@ public class DisplayProductActivity extends AppCompatActivity{
         new DisplayTask().execute();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(DisplayProductActivity.this,MainActivity.class));
+    }
+
     public void fabAddProd_click(View v){
         Intent i = new Intent(this,ProductActivity.class);
         startActivity(i);

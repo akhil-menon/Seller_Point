@@ -41,6 +41,11 @@ public class ProfileActivity extends AppCompatActivity {
         new userasynccls().execute();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ProfileActivity.this,MainActivity.class));
+    }
+
     public class userasynccls extends AsyncTask<String,Void,String>
     {
 
