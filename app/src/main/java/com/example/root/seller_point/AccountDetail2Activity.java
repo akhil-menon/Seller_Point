@@ -36,21 +36,31 @@ public class AccountDetail2Activity extends AppCompatActivity {
         txtaccount = findViewById(R.id.account_name);
         txtviewreturns = findViewById(R.id.txtviewreturn3);
         txtviewreturn1 = findViewById(R.id.txtviewreturn1);
-        img = findViewById(R.id.user_profile_photo);
+        img = findViewById(R.id.header_cover_image);
 
         Intent intent = getIntent();
         acid = intent.getIntExtra("ID",0);
 
+        if(acid == 1)
+            img.setImageResource(R.drawable.flipkart);
+        else if(acid == 2)
+            img.setImageResource(R.drawable.amazon);
+        else if(acid == 3)
+            img.setImageResource(R.drawable.snapdeal);
+        else if(acid == 4)
+            img.setImageResource(R.drawable.ebay);
+        else if(acid == 5)
+            img.setImageResource(R.drawable.shopclues);
+
         new DisplayTask().execute();
     }
 
-    public void txtprodclick(View view){
-        Intent intent = new Intent(this,DisplayProductActivity.class);
-        intent.putExtra("ID",acid);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AccountDetail2Activity.this,MainActivity.class));
     }
 
-    public void txtofferclick(View view){
+    public void txtprodclick(View view){
         Intent intent = new Intent(this,DisplayProductActivity.class);
         intent.putExtra("ID",acid);
         startActivity(intent);
