@@ -6,29 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".DisplayDetailActivity">
 
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom|center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:translationZ="15dp">
-        <Button
-            android:id="@+id/buttonaddoffer"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:background="@color/colorPrimary"
-            android:textColor="#ffffff"
-            android:textSize="26sp"
-            android:text="Add Offer"/>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/buttons"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="bottom|center_horizontal"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:translationZ="15dp">-->
+        <!--<Button-->
+            <!--android:id="@+id/buttonaddoffer"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="50"-->
+            <!--android:background="@color/colorPrimary"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textSize="26sp"-->
+            <!--android:text="Add Offer"/>-->
+    <!--</LinearLayout>-->
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/buttons">
+        android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="250dp">
@@ -68,7 +67,7 @@
                     android:layout_toRightOf="@+id/prod_title"
                     android:layout_below="@+id/viewline"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="225dp"
+                    android:layout_marginLeft="205dp"
                     android:text="Category"
                     android:textSize="15sp"
                     android:textStyle="normal" />
@@ -153,10 +152,23 @@
                     card_view:cardElevation="2dp">
 
                     <TextView
+                        android:id="@+id/txtprod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Product Description"
                         android:textSize="25dp"/>
+
+                    <View
+                        android:id="@+id/viewline2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_below="@+id/txtprod"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="#cccccc"
+                        />
 
                     <TextView
                         android:id="@+id/prod_desc"
