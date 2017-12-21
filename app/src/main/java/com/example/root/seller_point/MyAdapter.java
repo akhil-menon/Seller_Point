@@ -150,7 +150,7 @@ public class MyAdapter extends BaseAdapter {
                             Intent intent = new Intent();
                             intent.setType("image/*");
                             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            intent.setAction(Intent.ACTION_PICK);
                             ((Activity)context).startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
 
                             SharedPreferences pref = context.getSharedPreferences("Prod",Context.MODE_PRIVATE);
