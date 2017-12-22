@@ -159,8 +159,8 @@ public class MainActivity extends AppCompatActivity
             edit.clear();
             edit.commit();
             finish();
-//            Intent i = new Intent(this,LoginActivity.class);
-//            startActivity(i);
+            Intent i = new Intent(this,LoginActivity.class);
+            startActivity(i);
         } else if (id == R.id.product) {
             Intent i = new Intent(this,DisplayProductActivity.class);
             startActivity(i);

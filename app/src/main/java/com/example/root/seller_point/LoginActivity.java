@@ -67,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
+
     public class LoginTask extends AsyncTask<String,Void,String>
     {
         @Override
